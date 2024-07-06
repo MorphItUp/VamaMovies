@@ -1,0 +1,612 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		92DB1F342C3968B900B7D993 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F332C3968B900B7D993 /* AppDelegate.swift */; };
+		92DB1F362C3968B900B7D993 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F352C3968B900B7D993 /* SceneDelegate.swift */; };
+		92DB1F382C3968B900B7D993 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F372C3968B900B7D993 /* ViewController.swift */; };
+		92DB1F3B2C3968B900B7D993 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 92DB1F3A2C3968B900B7D993 /* Base */; };
+		92DB1F3D2C3968BB00B7D993 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92DB1F3C2C3968BB00B7D993 /* Assets.xcassets */; };
+		92DB1F402C3968BB00B7D993 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 92DB1F3F2C3968BB00B7D993 /* Base */; };
+		92DB1F4B2C3968BB00B7D993 /* VamaMoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F4A2C3968BB00B7D993 /* VamaMoviesTests.swift */; };
+		92DB1F552C3968BB00B7D993 /* VamaMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F542C3968BB00B7D993 /* VamaMoviesUITests.swift */; };
+		92DB1F572C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F562C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		92DB1F472C3968BB00B7D993 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92DB1F282C3968B900B7D993 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92DB1F2F2C3968B900B7D993;
+			remoteInfo = VamaMovies;
+		};
+		92DB1F512C3968BB00B7D993 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 92DB1F282C3968B900B7D993 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92DB1F2F2C3968B900B7D993;
+			remoteInfo = VamaMovies;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		92DB1F302C3968B900B7D993 /* VamaMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VamaMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92DB1F332C3968B900B7D993 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		92DB1F352C3968B900B7D993 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		92DB1F372C3968B900B7D993 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		92DB1F3A2C3968B900B7D993 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		92DB1F3C2C3968BB00B7D993 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		92DB1F3F2C3968BB00B7D993 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		92DB1F412C3968BB00B7D993 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92DB1F462C3968BB00B7D993 /* VamaMoviesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VamaMoviesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92DB1F4A2C3968BB00B7D993 /* VamaMoviesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VamaMoviesTests.swift; sourceTree = "<group>"; };
+		92DB1F502C3968BB00B7D993 /* VamaMoviesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VamaMoviesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92DB1F542C3968BB00B7D993 /* VamaMoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VamaMoviesUITests.swift; sourceTree = "<group>"; };
+		92DB1F562C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VamaMoviesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		92DB1F2D2C3968B900B7D993 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92DB1F432C3968BB00B7D993 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92DB1F4D2C3968BB00B7D993 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		92DB1F272C3968B900B7D993 = {
+			isa = PBXGroup;
+			children = (
+				92DB1F322C3968B900B7D993 /* VamaMovies */,
+				92DB1F492C3968BB00B7D993 /* VamaMoviesTests */,
+				92DB1F532C3968BB00B7D993 /* VamaMoviesUITests */,
+				92DB1F312C3968B900B7D993 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		92DB1F312C3968B900B7D993 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				92DB1F302C3968B900B7D993 /* VamaMovies.app */,
+				92DB1F462C3968BB00B7D993 /* VamaMoviesTests.xctest */,
+				92DB1F502C3968BB00B7D993 /* VamaMoviesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		92DB1F322C3968B900B7D993 /* VamaMovies */ = {
+			isa = PBXGroup;
+			children = (
+				92DB1F332C3968B900B7D993 /* AppDelegate.swift */,
+				92DB1F352C3968B900B7D993 /* SceneDelegate.swift */,
+				92DB1F372C3968B900B7D993 /* ViewController.swift */,
+				92DB1F392C3968B900B7D993 /* Main.storyboard */,
+				92DB1F3C2C3968BB00B7D993 /* Assets.xcassets */,
+				92DB1F3E2C3968BB00B7D993 /* LaunchScreen.storyboard */,
+				92DB1F412C3968BB00B7D993 /* Info.plist */,
+			);
+			path = VamaMovies;
+			sourceTree = "<group>";
+		};
+		92DB1F492C3968BB00B7D993 /* VamaMoviesTests */ = {
+			isa = PBXGroup;
+			children = (
+				92DB1F4A2C3968BB00B7D993 /* VamaMoviesTests.swift */,
+			);
+			path = VamaMoviesTests;
+			sourceTree = "<group>";
+		};
+		92DB1F532C3968BB00B7D993 /* VamaMoviesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				92DB1F542C3968BB00B7D993 /* VamaMoviesUITests.swift */,
+				92DB1F562C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift */,
+			);
+			path = VamaMoviesUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		92DB1F2F2C3968B900B7D993 /* VamaMovies */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92DB1F5A2C3968BB00B7D993 /* Build configuration list for PBXNativeTarget "VamaMovies" */;
+			buildPhases = (
+				92DB1F2C2C3968B900B7D993 /* Sources */,
+				92DB1F2D2C3968B900B7D993 /* Frameworks */,
+				92DB1F2E2C3968B900B7D993 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VamaMovies;
+			productName = VamaMovies;
+			productReference = 92DB1F302C3968B900B7D993 /* VamaMovies.app */;
+			productType = "com.apple.product-type.application";
+		};
+		92DB1F452C3968BB00B7D993 /* VamaMoviesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92DB1F5D2C3968BB00B7D993 /* Build configuration list for PBXNativeTarget "VamaMoviesTests" */;
+			buildPhases = (
+				92DB1F422C3968BB00B7D993 /* Sources */,
+				92DB1F432C3968BB00B7D993 /* Frameworks */,
+				92DB1F442C3968BB00B7D993 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92DB1F482C3968BB00B7D993 /* PBXTargetDependency */,
+			);
+			name = VamaMoviesTests;
+			productName = VamaMoviesTests;
+			productReference = 92DB1F462C3968BB00B7D993 /* VamaMoviesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		92DB1F4F2C3968BB00B7D993 /* VamaMoviesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92DB1F602C3968BB00B7D993 /* Build configuration list for PBXNativeTarget "VamaMoviesUITests" */;
+			buildPhases = (
+				92DB1F4C2C3968BB00B7D993 /* Sources */,
+				92DB1F4D2C3968BB00B7D993 /* Frameworks */,
+				92DB1F4E2C3968BB00B7D993 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92DB1F522C3968BB00B7D993 /* PBXTargetDependency */,
+			);
+			name = VamaMoviesUITests;
+			productName = VamaMoviesUITests;
+			productReference = 92DB1F502C3968BB00B7D993 /* VamaMoviesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		92DB1F282C3968B900B7D993 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					92DB1F2F2C3968B900B7D993 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					92DB1F452C3968BB00B7D993 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 92DB1F2F2C3968B900B7D993;
+					};
+					92DB1F4F2C3968BB00B7D993 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 92DB1F2F2C3968B900B7D993;
+					};
+				};
+			};
+			buildConfigurationList = 92DB1F2B2C3968B900B7D993 /* Build configuration list for PBXProject "VamaMovies" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 92DB1F272C3968B900B7D993;
+			productRefGroup = 92DB1F312C3968B900B7D993 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				92DB1F2F2C3968B900B7D993 /* VamaMovies */,
+				92DB1F452C3968BB00B7D993 /* VamaMoviesTests */,
+				92DB1F4F2C3968BB00B7D993 /* VamaMoviesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		92DB1F2E2C3968B900B7D993 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92DB1F3D2C3968BB00B7D993 /* Assets.xcassets in Resources */,
+				92DB1F402C3968BB00B7D993 /* Base in Resources */,
+				92DB1F3B2C3968B900B7D993 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92DB1F442C3968BB00B7D993 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92DB1F4E2C3968BB00B7D993 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		92DB1F2C2C3968B900B7D993 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92DB1F382C3968B900B7D993 /* ViewController.swift in Sources */,
+				92DB1F342C3968B900B7D993 /* AppDelegate.swift in Sources */,
+				92DB1F362C3968B900B7D993 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92DB1F422C3968BB00B7D993 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92DB1F4B2C3968BB00B7D993 /* VamaMoviesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92DB1F4C2C3968BB00B7D993 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92DB1F572C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift in Sources */,
+				92DB1F552C3968BB00B7D993 /* VamaMoviesUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		92DB1F482C3968BB00B7D993 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92DB1F2F2C3968B900B7D993 /* VamaMovies */;
+			targetProxy = 92DB1F472C3968BB00B7D993 /* PBXContainerItemProxy */;
+		};
+		92DB1F522C3968BB00B7D993 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92DB1F2F2C3968B900B7D993 /* VamaMovies */;
+			targetProxy = 92DB1F512C3968BB00B7D993 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		92DB1F392C3968B900B7D993 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92DB1F3A2C3968B900B7D993 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		92DB1F3E2C3968BB00B7D993 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				92DB1F3F2C3968BB00B7D993 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		92DB1F582C3968BB00B7D993 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		92DB1F592C3968BB00B7D993 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		92DB1F5B2C3968BB00B7D993 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y83TB2YS75;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VamaMovies/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vama.VamaMovies;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		92DB1F5C2C3968BB00B7D993 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y83TB2YS75;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VamaMovies/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vama.VamaMovies;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		92DB1F5E2C3968BB00B7D993 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y83TB2YS75;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vama.VamaMoviesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VamaMovies.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VamaMovies";
+			};
+			name = Debug;
+		};
+		92DB1F5F2C3968BB00B7D993 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y83TB2YS75;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vama.VamaMoviesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VamaMovies.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VamaMovies";
+			};
+			name = Release;
+		};
+		92DB1F612C3968BB00B7D993 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y83TB2YS75;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vama.VamaMoviesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VamaMovies;
+			};
+			name = Debug;
+		};
+		92DB1F622C3968BB00B7D993 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Y83TB2YS75;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Vama.VamaMoviesUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VamaMovies;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		92DB1F2B2C3968B900B7D993 /* Build configuration list for PBXProject "VamaMovies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92DB1F582C3968BB00B7D993 /* Debug */,
+				92DB1F592C3968BB00B7D993 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92DB1F5A2C3968BB00B7D993 /* Build configuration list for PBXNativeTarget "VamaMovies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92DB1F5B2C3968BB00B7D993 /* Debug */,
+				92DB1F5C2C3968BB00B7D993 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92DB1F5D2C3968BB00B7D993 /* Build configuration list for PBXNativeTarget "VamaMoviesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92DB1F5E2C3968BB00B7D993 /* Debug */,
+				92DB1F5F2C3968BB00B7D993 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92DB1F602C3968BB00B7D993 /* Build configuration list for PBXNativeTarget "VamaMoviesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92DB1F612C3968BB00B7D993 /* Debug */,
+				92DB1F622C3968BB00B7D993 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 92DB1F282C3968B900B7D993 /* Project object */;
+}
