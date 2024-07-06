@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		92DB1F4B2C3968BB00B7D993 /* VamaMoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F4A2C3968BB00B7D993 /* VamaMoviesTests.swift */; };
 		92DB1F552C3968BB00B7D993 /* VamaMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F542C3968BB00B7D993 /* VamaMoviesUITests.swift */; };
 		92DB1F572C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F562C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift */; };
+		92DB1F702C396D0200B7D993 /* VamaNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 92DB1F6F2C396D0200B7D993 /* VamaNetworking */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DB1F702C396D0200B7D993 /* VamaNetworking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +145,9 @@
 			dependencies = (
 			);
 			name = VamaMovies;
+			packageProductDependencies = (
+				92DB1F6F2C396D0200B7D993 /* VamaNetworking */,
+			);
 			productName = VamaMovies;
 			productReference = 92DB1F302C3968B900B7D993 /* VamaMovies.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +220,9 @@
 				Base,
 			);
 			mainGroup = 92DB1F272C3968B900B7D993;
+			packageReferences = (
+				92DB1F6E2C396CDA00B7D993 /* XCLocalSwiftPackageReference "../../VamaNetworking" */,
+			);
 			productRefGroup = 92DB1F312C3968B900B7D993 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -607,6 +615,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		92DB1F6E2C396CDA00B7D993 /* XCLocalSwiftPackageReference "../../VamaNetworking" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../VamaNetworking;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		92DB1F6F2C396D0200B7D993 /* VamaNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = VamaNetworking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 92DB1F282C3968B900B7D993 /* Project object */;
 }
