@@ -26,6 +26,9 @@
 		92DB1F882C39726700B7D993 /* MovieDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F872C39726700B7D993 /* MovieDetailsModel.swift */; };
 		92DB1F8B2C39731E00B7D993 /* MovieListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F8A2C39731E00B7D993 /* MovieListRepository.swift */; };
 		92DB1F8D2C39732500B7D993 /* MovieDetailsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F8C2C39732500B7D993 /* MovieDetailsRepository.swift */; };
+		92DB1F902C39750B00B7D993 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F8F2C39750B00B7D993 /* NetworkConstants.swift */; };
+		92DB1F932C39754A00B7D993 /* MovieListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F922C39754A00B7D993 /* MovieListRequest.swift */; };
+		92DB1F952C39757700B7D993 /* MovieDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F942C39757700B7D993 /* MovieDetailsRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,9 @@
 		92DB1F872C39726700B7D993 /* MovieDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsModel.swift; sourceTree = "<group>"; };
 		92DB1F8A2C39731E00B7D993 /* MovieListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListRepository.swift; sourceTree = "<group>"; };
 		92DB1F8C2C39732500B7D993 /* MovieDetailsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsRepository.swift; sourceTree = "<group>"; };
+		92DB1F8F2C39750B00B7D993 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
+		92DB1F922C39754A00B7D993 /* MovieListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListRequest.swift; sourceTree = "<group>"; };
+		92DB1F942C39757700B7D993 /* MovieDetailsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,8 @@
 		92DB1F742C396D9E00B7D993 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				92DB1F912C39754100B7D993 /* Requests */,
+				92DB1F8E2C39747E00B7D993 /* NetworkConstants */,
 				92DB1F892C39730F00B7D993 /* Repository */,
 				92DB1F842C3971E800B7D993 /* DTO */,
 			);
@@ -218,6 +226,23 @@
 				92DB1F8C2C39732500B7D993 /* MovieDetailsRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		92DB1F8E2C39747E00B7D993 /* NetworkConstants */ = {
+			isa = PBXGroup;
+			children = (
+				92DB1F8F2C39750B00B7D993 /* NetworkConstants.swift */,
+			);
+			path = NetworkConstants;
+			sourceTree = "<group>";
+		};
+		92DB1F912C39754100B7D993 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				92DB1F922C39754A00B7D993 /* MovieListRequest.swift */,
+				92DB1F942C39757700B7D993 /* MovieDetailsRequest.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,11 +382,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DB1F902C39750B00B7D993 /* NetworkConstants.swift in Sources */,
 				92DB1F8B2C39731E00B7D993 /* MovieListRepository.swift in Sources */,
 				92DB1F862C39725600B7D993 /* MovieModel.swift in Sources */,
 				92DB1F882C39726700B7D993 /* MovieDetailsModel.swift in Sources */,
 				92DB1F7F2C39718700B7D993 /* MovieResultEntity.swift in Sources */,
 				92DB1F382C3968B900B7D993 /* ViewController.swift in Sources */,
+				92DB1F932C39754A00B7D993 /* MovieListRequest.swift in Sources */,
 				92DB1F7B2C39715F00B7D993 /* MovieEntity.swift in Sources */,
 				92DB1F832C3971CE00B7D993 /* MovieDetailsUseCase.swift in Sources */,
 				92DB1F342C3968B900B7D993 /* AppDelegate.swift in Sources */,
@@ -369,6 +396,7 @@
 				92DB1F8D2C39732500B7D993 /* MovieDetailsRepository.swift in Sources */,
 				92DB1F362C3968B900B7D993 /* SceneDelegate.swift in Sources */,
 				92DB1F812C39719900B7D993 /* MovieDetailsEntity.swift in Sources */,
+				92DB1F952C39757700B7D993 /* MovieDetailsRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
