@@ -9,7 +9,7 @@ import UIKit
 
 protocol MovieViewFactoryProtocol {
     func makeMovieList() -> (UIViewController, MovieListViewModelRouterProtocol)
-    func makeMovieDetails(movieId: Int) -> UIViewController
+    func makeMovieDetails(movieId: Int) -> (UIViewController, MovieDetailsViewModelRouterProtocol)
 }
 
 class MovieViewFactory: MovieViewFactoryProtocol {
@@ -22,10 +22,15 @@ class MovieViewFactory: MovieViewFactoryProtocol {
         return (view, viewModel)
     }
     
-    func makeMovieDetails(movieId: Int) -> UIViewController {
-        UIViewController()
+    func makeMovieDetails(movieId: Int) -> (UIViewController, MovieDetailsViewModelRouterProtocol) {
+        let repo = MovieDetailsRepository()
+        let useCase = MovieDetailsUseCase(
+            movieDetailsRepo: repo,
+            movieId: movieId
+        )
+        let viewModel = MovieDetailsViewModel(movieDetailsUseCase: useCase)
+        let view = MovieDetailsViewController.create(with: viewModel)
+        return (view, viewModel)
     }
-    
-    
 }
 

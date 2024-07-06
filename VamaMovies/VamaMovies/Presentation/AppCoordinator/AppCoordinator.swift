@@ -35,7 +35,7 @@ class AppCoordinator {
     }
     
     func navigateToMovieDetails(withId movieId: Int) {
-        let view = movieViewFactory.makeMovieDetails(movieId: movieId)
+        var (view, _) = movieViewFactory.makeMovieDetails(movieId: movieId)
         navigationController.pushViewController(view, animated: true)
     }
     
