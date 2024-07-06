@@ -58,7 +58,7 @@
 		92DB1F302C3968B900B7D993 /* VamaMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VamaMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DB1F332C3968B900B7D993 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92DB1F352C3968B900B7D993 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		92DB1F3A2C3968B900B7D993 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		92DB1F3A2C3968B900B7D993 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MovieListViewController.storyboard; sourceTree = "<group>"; };
 		92DB1F3C2C3968BB00B7D993 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92DB1F3F2C3968BB00B7D993 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92DB1F412C3968BB00B7D993 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,7 +142,6 @@
 				92DB1F742C396D9E00B7D993 /* Data */,
 				92DB1F722C396D9800B7D993 /* Domain */,
 				92DB1F732C396D9B00B7D993 /* Presentation */,
-				92DB1F392C3968B900B7D993 /* Main.storyboard */,
 				92DB1F3C2C3968BB00B7D993 /* Assets.xcassets */,
 				92DB1F3E2C3968BB00B7D993 /* LaunchScreen.storyboard */,
 				92DB1F412C3968BB00B7D993 /* Info.plist */,
@@ -304,6 +303,7 @@
 		92DB1FA42C398A5E00B7D993 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				92DB1F392C3968B900B7D993 /* MovieListViewController.storyboard */,
 				92DB1FA22C39888700B7D993 /* MovieListViewController.swift */,
 				92DB1FA62C398AA800B7D993 /* MovieCell.swift */,
 			);
@@ -537,12 +537,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		92DB1F392C3968B900B7D993 /* Main.storyboard */ = {
+		92DB1F392C3968B900B7D993 /* MovieListViewController.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				92DB1F3A2C3968B900B7D993 /* Base */,
 			);
-			name = Main.storyboard;
+			name = MovieListViewController.storyboard;
 			sourceTree = "<group>";
 		};
 		92DB1F3E2C3968BB00B7D993 /* LaunchScreen.storyboard */ = {
@@ -687,7 +687,6 @@
 				INFOPLIST_FILE = VamaMovies/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -715,7 +714,6 @@
 				INFOPLIST_FILE = VamaMovies/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

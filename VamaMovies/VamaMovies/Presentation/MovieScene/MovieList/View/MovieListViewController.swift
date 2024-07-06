@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class MovieListViewController: UIViewController, StoryboardInstantiable,  UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+class MovieListViewController: UIViewController, StoryboardInstantiable, UISearchBarDelegate {
     
     private var viewModel: MovieListViewModel!
     
@@ -39,6 +39,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable,  UIColl
             switch state {
             case .content(let movieModel):
                 self.movies = movieModel
+                self.collectionView.reloadData()
             default:
                 break
             }
@@ -50,10 +51,6 @@ class MovieListViewController: UIViewController, StoryboardInstantiable,  UIColl
         setupSearchBar()
         setupCollectionView()
         setupActivityIndicator()
-        
-       
-        
-        // Do any additional setup after loading the view.
     }
     
     
@@ -105,26 +102,6 @@ class MovieListViewController: UIViewController, StoryboardInstantiable,  UIColl
         ])
     }
     
-
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isSearching ? filteredMovies.count : movies.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseIdentifier, for: indexPath) as! MovieCell
-        let movie = isSearching ? filteredMovies[indexPath.item] : movies[indexPath.item]
-        cell.configure(with: movie)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let movie = isSearching ? filteredMovies[indexPath.item] : movies[indexPath.item]
-        // Navigate to detailed movie page
-        // let detailVC = MovieDetailViewController(movie: movie)
-        // navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
            if searchText.isEmpty {
                isSearching = false
@@ -136,16 +113,26 @@ class MovieListViewController: UIViewController, StoryboardInstantiable,  UIColl
                collectionView.reloadData()
            }
        }
+}
+
+extension MovieListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return isSearching ? filteredMovies.count : movies.count
+    }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseIdentifier, for: indexPath) as! MovieCell
+        let movie = isSearching ? filteredMovies[indexPath.item] : movies[indexPath.item]
+        cell.configure(with: movie)
+        return cell
+    }
+}
+
+extension MovieListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movie = isSearching ? filteredMovies[indexPath.item] : movies[indexPath.item]
+        // Navigate to detailed movie page
+        // let detailVC = MovieDetailViewController(movie: movie)
+        // navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
