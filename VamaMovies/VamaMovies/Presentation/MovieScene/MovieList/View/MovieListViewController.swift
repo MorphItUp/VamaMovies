@@ -131,6 +131,8 @@ extension MovieListViewController: UICollectionViewDataSource {
 extension MovieListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = isSearching ? filteredMovies[indexPath.item] : movies[indexPath.item]
+        
+        viewModel.selectedMovieHandler(movie.id)
         // Navigate to detailed movie page
         // let detailVC = MovieDetailViewController(movie: movie)
         // navigationController?.pushViewController(detailVC, animated: true)

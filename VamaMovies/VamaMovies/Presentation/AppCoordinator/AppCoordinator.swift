@@ -26,7 +26,16 @@ class AppCoordinator {
     // MARK: - Methods
     
     func start() {
-        let view = movieViewFactory.makeMovieList()
+        var (view, viewModel) = movieViewFactory.makeMovieList()
+        viewModel.selectedMovieHandler = { [weak self] movieId in
+            guard let self else { return }
+            navigateToMovieDetails(withId: movieId)
+        }
+        navigationController.pushViewController(view, animated: true)
+    }
+    
+    func navigateToMovieDetails(withId movieId: Int) {
+        let view = movieViewFactory.makeMovieDetails(movieId: movieId)
         navigationController.pushViewController(view, animated: true)
     }
     
