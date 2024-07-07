@@ -42,6 +42,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
         setupCollectionView()
         setupActivityIndicator()
         setupDataSource()
+        
         composeState()
         fetchMovieList()
     }
@@ -65,7 +66,6 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     private func composeSearchQuerySubject() {
         searchQuerySubject
             .debounce(for: .seconds(1.5), scheduler: RunLoop.main)
-            .removeDuplicates()
             .sink { [weak self] query in
                 guard let self = self else { return }
                 if query.isEmpty {

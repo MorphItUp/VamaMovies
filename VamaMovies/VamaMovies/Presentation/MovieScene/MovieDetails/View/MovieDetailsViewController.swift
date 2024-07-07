@@ -11,9 +11,7 @@ import Combine
 class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
 
     private var movie: MovieDetailsModel!
-    
     private var viewModel: MovieDetailsViewModel!
-    
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let posterContainerView = UIView()
@@ -43,8 +41,8 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         setupDescriptionView()
         setupDescriptionLabel()
         setupActivityIndicator()
-        
         layoutUI()
+        
         composeState()
         fetchMovieDetails()
     }
