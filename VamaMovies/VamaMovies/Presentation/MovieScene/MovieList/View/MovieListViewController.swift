@@ -35,11 +35,23 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        setupSearchBar()
+        setupCollectionView()
+        setupActivityIndicator()
+        
+        fetchMovieList()
+    }
+    
+    func fetchMovieList() {
+        
+        activityIndicator.startAnimating()
+        
         viewModel.$state.sink { state in
             switch state {
             case .content(let movieModel):
                 self.movies = movieModel
                 self.collectionView.reloadData()
+                self.activityIndicator.stopAnimating()
             default:
                 break
             }
@@ -47,10 +59,6 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
         .store(in: &subscriptions)
         
         viewModel.configure()
-        
-        setupSearchBar()
-        setupCollectionView()
-        setupActivityIndicator()
     }
     
     

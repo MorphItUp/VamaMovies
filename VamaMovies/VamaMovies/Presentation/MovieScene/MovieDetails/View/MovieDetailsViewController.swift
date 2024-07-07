@@ -21,18 +21,10 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     let titleLabel = UILabel()
     let descriptionView = UIView()
     let descriptionLabel = UILabel()
+    let activityIndicator = UIActivityIndicatorView(style: .large)
     
     private var subscriptions = Set<AnyCancellable>()
     
-//    init(movie: MovieDetailsModel) {
-//        self.movie = movie
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
     // MARK: - Lifecycle
     
     static func create(with viewModel: MovieDetailsViewModel) -> MovieDetailsViewController {
@@ -43,14 +35,30 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemGray6
+        setupScrollView()
+        setupPosterImageView()
+        setupPosterContainerView()
+        setupTitleLabel()
+        setupDescriptionView()
+        setupDescriptionLabel()
+        setupActivityIndicator()
+        
+        layoutUI()
+        
+        fetchMovieDetails()
+    }
+    
+    func fetchMovieDetails() {
+        
+        activityIndicator.startAnimating()
         
         viewModel.$state.sink { state in
             switch state {
             case .content(let movieModel):
                 self.movie = movieModel
                 self.configureUI()
+                self.activityIndicator.stopAnimating()
             default:
                 break
             }
@@ -59,17 +67,6 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         
         
         viewModel.configure()
-        
-        setupScrollView()
-        setupPosterImageView()
-        setupPosterContainerView()
-        setupTitleLabel()
-        setupDescriptionView()
-        setupDescriptionLabel()
-        
-        layoutUI()
-        addGradientToPosterImageView()
-//        configureUI()
     }
     
     func setupScrollView() {
@@ -137,6 +134,16 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         descriptionView.addSubview(descriptionLabel)
     }
     
+    func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     func layoutUI() {
         NSLayoutConstraint.activate([
             
@@ -167,22 +174,5 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)") else { return }
         posterImageView.load(url: url)
     }
-    
-    private func addGradientToPosterImageView() {
-           let gradientLayer = CAGradientLayer()
-           gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.7).cgColor]
-           gradientLayer.locations = [0.7, 1.0]
-           gradientLayer.frame = posterImageView.bounds
-           gradientLayer.cornerRadius = posterImageView.layer.cornerRadius
-           gradientLayer.masksToBounds = true
-           
-           posterImageView.layer.addSublayer(gradientLayer)
-       }
-       
-       override func viewDidLayoutSubviews() {
-           super.viewDidLayoutSubviews()
-           // Ensure the gradient layer resizes with the image view
-           posterImageView.layer.sublayers?.first { $0 is CAGradientLayer }?.frame = posterImageView.bounds
-       }
 }
 
