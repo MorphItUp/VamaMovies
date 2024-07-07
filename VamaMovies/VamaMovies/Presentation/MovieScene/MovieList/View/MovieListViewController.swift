@@ -23,7 +23,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     private var filteredMovies: [MovieModel] = []
     private var viewModel: MovieListViewModel!
     private var dataSource: UICollectionViewDiffableDataSource<Section, MovieModel>!
-
+    
     private var searchQuerySubject = PassthroughSubject<String, Never>()
     
     // MARK: - Lifecycle
@@ -37,7 +37,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupSearchSubscription()
+        composeSearchQuerySubject()
         setupSearchBar()
         setupCollectionView()
         setupActivityIndicator()
@@ -60,47 +60,46 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
         }
     }
     
-    private func setupSearchSubscription() {
-           searchQuerySubject
+    // MARK: - Compose
+    
+    private func composeSearchQuerySubject() {
+        searchQuerySubject
             .debounce(for: .seconds(1.5), scheduler: RunLoop.main)
-               .removeDuplicates()
-               .sink { [weak self] query in
-                   guard let self = self else { return }
-                   if query.isEmpty {
-                       isSearching = false
-                       DispatchQueue.main.async {
-                           self.applySnapshot(animatingDifferences: true)
-                       }
-                   } else {
-                       fetchSearhedMovies(with: query)
-                   }
-               }
-               .store(in: &subscriptions)
-       }
+            .removeDuplicates()
+            .sink { [weak self] query in
+                guard let self = self else { return }
+                if query.isEmpty {
+                    isSearching = false
+                    DispatchQueue.main.async {
+                        self.applySnapshot(animatingDifferences: true)
+                    }
+                } else {
+                    fetchSearhedMovies(with: query)
+                }
+            }
+            .store(in: &subscriptions)
+    }
     
     private func composeState() {
-        
-        viewModel.$snapshot.sink { [weak self] snapshot in
-            guard let self else { return }
-            dataSource.apply(snapshot, animatingDifferences: true)
-            
-            if isSearching {
-                filteredMovies = snapshot.itemIdentifiers
-            } else {
-                movies = snapshot.itemIdentifiers
-            }
-          
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-            }
-        }
-        .store(in: &subscriptions)
-        
         viewModel.$state.sink { [weak self] state in
+            guard let self else { return }
             switch state {
+            case .content(let snapshot):
+                if isSearching {
+                    filteredMovies = snapshot.itemIdentifiers
+                } else {
+                    movies = snapshot.itemIdentifiers
+                }
+                
+                applySnapshot(animatingDifferences: true)
+                
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
+                
             case .loading:
                 DispatchQueue.main.async {
-                    self?.activityIndicator.startAnimating()
+                    self.activityIndicator.startAnimating()
                 }
             default:
                 break
@@ -109,18 +108,16 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
         .store(in: &subscriptions)
     }
     
-    private func applySnapshot() {
+    private func applySnapshot(animatingDifferences: Bool) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(self.movies, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
-
-    private func applySnapshotWithSearchResults() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(self.filteredMovies, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        
+        if isSearching {
+            snapshot.appendItems(filteredMovies)
+        } else {
+            snapshot.appendItems(movies)
+        }
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
     
     // MARK: - Setup UI
@@ -176,31 +173,31 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
         }
     }
     
-    private func applySnapshot(animatingDifferences: Bool) {
-           var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
-           snapshot.appendSections([.main])
-           
-           if isSearching {
-               snapshot.appendItems(filteredMovies)
-           } else {
-               snapshot.appendItems(movies)
-           }
-           
-           dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
-       }
-      
-      private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-          let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
-          let item = NSCollectionLayoutItem(layoutSize: itemSize)
-          item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
-          
-          let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.75))
-          let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-          
-          let section = NSCollectionLayoutSection(group: group)
-          
-          return UICollectionViewCompositionalLayout(section: section)
-      }
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.5),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(
+            top: 8,
+            leading: 8,
+            bottom: 8,
+            trailing: 8
+        )
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalWidth(0.75)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        let section = NSCollectionLayoutSection(group: group)
+        
+        return UICollectionViewCompositionalLayout(section: section)
+    }
 }
 
 // MARK: - UICollectionView DataSource
@@ -230,8 +227,8 @@ extension MovieListViewController: UICollectionViewDelegate {
 // MARK: - UISearchBar Delegate
 
 extension MovieListViewController: UISearchBarDelegate {
-   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-       isSearching = !searchText.isEmpty
-       searchQuerySubject.send(searchText)
-       }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        isSearching = !searchText.isEmpty
+        searchQuerySubject.send(searchText)
+    }
 }

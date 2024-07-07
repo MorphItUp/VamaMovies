@@ -10,7 +10,7 @@ import UIKit
 
 enum MovieListState {
     case loading
-    case content([MovieModel])
+    case content(NSDiffableDataSourceSnapshot<Section, MovieModel>)
     case error(Error)
 }
 
@@ -31,8 +31,6 @@ final class MovieListViewModel: MovieListViewModelProtocol, MovieListViewModelRo
     private let movieListUseCase: MovieListUseCaseProtocol
     internal var selectedMovieHandler: (Int) -> Void = { _ in }
     @Published private (set) var state: MovieListState? = .loading
-
-    @Published var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
     
     // MARK: - Init
     
@@ -45,10 +43,12 @@ final class MovieListViewModel: MovieListViewModelProtocol, MovieListViewModelRo
     func getMovieList() async {
         do {
             guard let movieList = try await movieListUseCase.getMovieList() else { return }
-//            self.state = .content(movieList)
-            snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
+            var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
+            self.state = .content(snapshot)
+            
             snapshot.appendSections([.main])
             snapshot.appendItems(movieList, toSection: .main)
+            self.state = .content(snapshot)
         } catch {
             self.state = .error(error)
         }
@@ -57,10 +57,12 @@ final class MovieListViewModel: MovieListViewModelProtocol, MovieListViewModelRo
     func searchMovie(with query: String) async {
         do {
             guard let searchedMovieList = try await movieListUseCase.searchMovie(with: query) else { return }
-//            self.state = .content(searchedMovieList)
-            snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
+            var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
+            self.state = .content(snapshot)
+            
             snapshot.appendSections([.main])
             snapshot.appendItems(searchedMovieList, toSection: .main)
+            self.state = .content(snapshot)
             
         } catch {
             self.state = .error(error)
