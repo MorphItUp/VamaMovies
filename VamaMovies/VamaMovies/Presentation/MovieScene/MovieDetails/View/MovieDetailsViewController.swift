@@ -10,18 +10,18 @@ import Combine
 
 class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
 
-    var movie: MovieDetailsModel!
+    private var movie: MovieDetailsModel!
     
     private var viewModel: MovieDetailsViewModel!
     
-    let scrollView = UIScrollView()
-    let contentView = UIView()
-    let posterContainerView = UIView()
-    let posterImageView = UIImageView()
-    let titleLabel = UILabel()
-    let descriptionView = UIView()
-    let descriptionLabel = UILabel()
-    let activityIndicator = UIActivityIndicatorView(style: .large)
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private let posterContainerView = UIView()
+    private let posterImageView = UIImageView()
+    private let titleLabel = UILabel()
+    private let descriptionView = UIView()
+    private let descriptionLabel = UILabel()
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     private var subscriptions = Set<AnyCancellable>()
     
@@ -49,7 +49,15 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         fetchMovieDetails()
     }
     
-    func composeState() {
+    // MARK: - Fetch MovieDetails
+    
+    private func fetchMovieDetails() {
+        Task {
+            await viewModel.configure()
+        }
+    }
+    
+    private func composeState() {
         viewModel.$state.sink { state in
             switch state {
             case .content(let movieModel):
@@ -58,6 +66,10 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
                     self.configureUI()
                     self.activityIndicator.stopAnimating()
                 }
+            case .loading:
+                DispatchQueue.main.async {
+                    self.activityIndicator.startAnimating()
+                }
             default:
                 break
             }
@@ -65,14 +77,16 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         .store(in: &subscriptions)
     }
     
-    func fetchMovieDetails() {
-        Task {
-            activityIndicator.startAnimating()
-            await viewModel.configure()
-        }
+   // MARK: - Setup UI
+    
+    private func configureUI() {
+        titleLabel.text = movie.title
+        descriptionLabel.text = movie.overview
+        guard let url = URL(string: "\(NetworkConstants.imageUrl.rawValue + movie.posterPath)") else { return }
+        posterImageView.load(url: url)
     }
     
-    func setupScrollView() {
+    private func setupScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         
@@ -93,7 +107,7 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         ])
     }
     
-    func setupPosterContainerView() {
+    private func setupPosterContainerView() {
         posterContainerView.layer.shadowColor = UIColor.black.cgColor
         posterContainerView.layer.shadowOpacity = 0.5
         posterContainerView.layer.shadowOffset = CGSize(width: 0, height: 12)
@@ -103,7 +117,7 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         contentView.addSubview(posterContainerView)
     }
     
-    func setupPosterImageView() {
+    private func setupPosterImageView() {
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
         posterImageView.layer.cornerRadius = 12
@@ -112,14 +126,14 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         posterContainerView.addSubview(posterImageView)
     }
     
-    func setupTitleLabel() {
+    private func setupTitleLabel() {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(titleLabel)
     }
     
-    func setupDescriptionView() {
+    private func setupDescriptionView() {
         descriptionView.backgroundColor = .white
         descriptionView.layer.shadowColor = UIColor.black.cgColor
         descriptionView.layer.shadowOpacity = 0.1
@@ -130,14 +144,14 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         contentView.addSubview(descriptionView)
     }
     
-    func setupDescriptionLabel() {
+    private func setupDescriptionLabel() {
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.addSubview(descriptionLabel)
     }
     
-    func setupActivityIndicator() {
+    private func setupActivityIndicator() {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(activityIndicator)
         
@@ -147,7 +161,7 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         ])
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         NSLayoutConstraint.activate([
             
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -169,13 +183,6 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
             descriptionLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -16),
             descriptionLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: -16)
         ])
-    }
-    
-    func configureUI() {
-        titleLabel.text = movie.title
-        descriptionLabel.text = movie.overview
-        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)") else { return }
-        posterImageView.load(url: url)
     }
 }
 

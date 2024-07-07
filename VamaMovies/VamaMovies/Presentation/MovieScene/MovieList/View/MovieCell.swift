@@ -109,7 +109,7 @@ class MovieCell: UICollectionViewCell {
         titleLabel.text = movie.title
         yearLabel.text = movie.releaseDate
         genreLabel.text = movie.overview
-        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.poster)") else { return }
+        guard let url = URL(string: "\(NetworkConstants.imageUrl.rawValue + movie.poster)") else { return }
         imageView.load(url: url)
         //           genreLabel.text = movie.genres.compactMap { genreID in
         //               genres.first(where: { $0.id == genreID })?.name

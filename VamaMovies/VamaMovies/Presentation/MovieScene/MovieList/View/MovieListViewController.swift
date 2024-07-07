@@ -8,20 +8,16 @@
 import UIKit
 import Combine
 
-class MovieListViewController: UIViewController, StoryboardInstantiable, UISearchBarDelegate {
-    
-    private var viewModel: MovieListViewModel!
-    
-    var collectionView: UICollectionView!
-    var searchBar: UISearchBar!
-    var activityIndicator: UIActivityIndicatorView!
-    var isSearching = false
-    
-    var movies: [MovieModel] = []
-    
-    var filteredMovies: [MovieModel] = []
+class MovieListViewController: UIViewController, StoryboardInstantiable {
     
     private var subscriptions = Set<AnyCancellable>()
+    private var collectionView: UICollectionView!
+    private var searchBar: UISearchBar!
+    private var activityIndicator: UIActivityIndicatorView!
+    private var isSearching = false
+    private var movies: [MovieModel] = []
+    private var filteredMovies: [MovieModel] = []
+    private var viewModel: MovieListViewModel!
     
     // MARK: - Lifecycle
     
@@ -42,14 +38,16 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
         fetchMovieList()
     }
     
-    func fetchMovieList() {
+    // MARK: - Fetch MovieList
+    
+    private func fetchMovieList() {
         Task {
             activityIndicator.startAnimating()
             await viewModel.configure()
         }
     }
     
-    func composeState() {
+    private func composeState() {
         viewModel.$state.sink { state in
             switch state {
             case .content(let movieModel):
@@ -57,6 +55,10 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                     self.activityIndicator.stopAnimating()
+                }
+            case .loading:
+                DispatchQueue.main.async {
+                    self.activityIndicator.startAnimating()
                 }
             default:
                 break
@@ -68,7 +70,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
     
     // MARK: - Setup UI
     
-    func setupSearchBar() {
+    private func setupSearchBar() {
         searchBar = UISearchBar()
         searchBar.placeholder = "Search Movies"
         searchBar.delegate = self
@@ -82,7 +84,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
         ])
     }
     
-    func setupCollectionView() {
+    private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: view.frame.width / 2 - 16, height: view.frame.width / 2 * 1.5)
         layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
@@ -103,7 +105,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
         ])
     }
     
-    func setupActivityIndicator() {
+    private func setupActivityIndicator() {
         activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(activityIndicator)
@@ -113,19 +115,9 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-           if searchText.isEmpty {
-               isSearching = false
-               filteredMovies.removeAll()
-               collectionView.reloadData()
-           } else {
-               isSearching = true
-               filteredMovies = movies.filter { $0.title.lowercased().contains(searchText.lowercased()) }
-               collectionView.reloadData()
-           }
-       }
 }
+
+// MARK: - UICollectionView DataSource
 
 extension MovieListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -140,13 +132,27 @@ extension MovieListViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionView Delegate
+
 extension MovieListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = isSearching ? filteredMovies[indexPath.item] : movies[indexPath.item]
-        
         viewModel.selectedMovieHandler(movie.id)
-        // Navigate to detailed movie page
-        // let detailVC = MovieDetailViewController(movie: movie)
-        // navigationController?.pushViewController(detailVC, animated: true)
     }
+}
+
+// MARK: - UISearchBar Delegate
+
+extension MovieListViewController: UISearchBarDelegate {
+   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+           if searchText.isEmpty {
+               isSearching = false
+               filteredMovies.removeAll()
+               collectionView.reloadData()
+           } else {
+               isSearching = true
+               filteredMovies = movies.filter { $0.title.lowercased().contains(searchText.lowercased()) }
+               collectionView.reloadData()
+           }
+       }
 }

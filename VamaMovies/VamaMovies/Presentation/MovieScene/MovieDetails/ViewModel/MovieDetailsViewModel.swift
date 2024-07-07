@@ -24,7 +24,6 @@ final class MovieDetailsViewModel: MovieDetailsViewModelProtocol, MovieDetailsVi
     
     // MARK: - Private Properties
     
-    private var subscriptions = Set<AnyCancellable>()
     private let movieDetailsUseCase: MovieDetailsUseCaseProtocol
     @Published private (set) var state: MovieDetailsState? = .loading
     

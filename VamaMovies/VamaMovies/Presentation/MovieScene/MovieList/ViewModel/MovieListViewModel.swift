@@ -15,7 +15,6 @@ enum MovieListState {
 
 protocol MovieListViewModelProtocol: ObservableObject {
     func configure() async
-    func didSelectedMovie(id: Int)
     var state: MovieListState? { get }
 }
 
@@ -27,7 +26,6 @@ final class MovieListViewModel: MovieListViewModelProtocol, MovieListViewModelRo
     
     // MARK: - Private Properties
     
-    private var subscriptions = Set<AnyCancellable>()
     private let movieListUseCase: MovieListUseCaseProtocol
     internal var selectedMovieHandler: (Int) -> Void = { _ in }
     @Published private (set) var state: MovieListState? = .loading
@@ -47,11 +45,5 @@ final class MovieListViewModel: MovieListViewModelProtocol, MovieListViewModelRo
         } catch {
             self.state = .error(error)
         }
-    }
-    
-    // MARK: - Methods
-    
-    func didSelectedMovie(id: Int) {
-        selectedMovieHandler(id)
     }
 }
