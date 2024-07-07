@@ -64,15 +64,16 @@ class MovieCell: UICollectionViewCell {
     }
     
     private func setupYearLabel() {
-        yearLabel.font = UIFont.systemFont(ofSize: 14)
+        yearLabel.font = UIFont.systemFont(ofSize: 12)
         yearLabel.textColor = .black
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.addSubview(yearLabel)
     }
    
     private func setupGenreLabel() {
-        genreLabel.font = UIFont.systemFont(ofSize: 14)
+        genreLabel.font = UIFont.systemFont(ofSize: 10)
         genreLabel.textColor = .black
+        genreLabel.numberOfLines = 0
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.addSubview(genreLabel)
     }
@@ -107,10 +108,11 @@ class MovieCell: UICollectionViewCell {
     
     func configure(with movie: MovieModel) {
         titleLabel.text = movie.title
-        yearLabel.text = movie.releaseDate
+        yearLabel.text = movie.releaseDate.extractYear()
         genreLabel.text = movie.overview
         guard let url = URL(string: "\(NetworkConstants.imageUrl.rawValue + movie.poster)") else { return }
         imageView.load(url: url)
+        
         //           genreLabel.text = movie.genres.compactMap { genreID in
         //               genres.first(where: { $0.id == genreID })?.name
         //           }.joined(separator: ", ")

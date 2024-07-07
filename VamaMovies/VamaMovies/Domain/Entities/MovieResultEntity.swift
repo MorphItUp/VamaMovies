@@ -9,6 +9,7 @@ import Foundation
 
 struct MovieResultEntity: Codable {
     var id: Int
+    var genreId: [Int]
     var backdropPath: String?
     var originalLanguage, originalTitle, overview: String
     var popularity: Double
@@ -19,6 +20,7 @@ struct MovieResultEntity: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id
+        case genreId = "genre_ids"
         case backdropPath = "backdrop_path"
         case originalLanguage = "original_language"
         case originalTitle = "original_title"

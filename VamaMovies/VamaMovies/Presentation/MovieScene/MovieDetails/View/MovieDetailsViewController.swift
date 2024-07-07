@@ -82,7 +82,7 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     private func configureUI() {
         titleLabel.text = movie.title
         descriptionLabel.text = movie.overview
-        guard let url = URL(string: "\(NetworkConstants.imageUrl.rawValue + movie.posterPath)") else { return }
+        guard let url = URL(string: "\(NetworkConstants.imageUrlOriginal.rawValue + movie.posterPath)") else { return }
         posterImageView.load(url: url)
     }
     
