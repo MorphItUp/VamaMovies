@@ -51,7 +51,7 @@ final class MovieListViewModelTests: XCTestCase {
         }
     }
     
-    func test_getMovieList_whenRequestFailed_thenShouldReturnMovieModels() {
+    func test_getMovieList_whenRequestFailed_thenShouldReturnError() {
         // Given
         let expectedResults = NSError(domain: "backend", code: 100)
         useCaseMock.error = NSError(domain: "backend", code: 100)
@@ -95,7 +95,7 @@ final class MovieListViewModelTests: XCTestCase {
         }
     }
     
-    func test_searchMovie_whenRequestFailed_thenShouldReturnMovieModels() {
+    func test_searchMovie_whenRequestFailed_thenShouldReturnError() {
         // Given
         let expectedResults = NSError(domain: "backend", code: 100)
         useCaseMock.error = NSError(domain: "backend", code: 100)

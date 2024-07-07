@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 @testable import VamaMovies
 
 final class MovieListUseCaseMock: MovieListUseCaseProtocol {

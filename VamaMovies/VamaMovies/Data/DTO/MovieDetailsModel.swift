@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieDetailsModel {
+struct MovieDetailsModel: Equatable {
     let id: Int
     let budget: Int
     let genres: [MovieGenreModel]
@@ -57,9 +57,22 @@ struct MovieDetailsModel {
         self.voteAverage = voteAverage
         self.voteCount = voteCount
     }
+    
+    static func == (lhs: MovieDetailsModel, rhs: MovieDetailsModel) -> Bool {
+        return lhs.id == rhs.id &&
+        lhs.budget == rhs.budget &&
+        lhs.genres == rhs.genres &&
+        lhs.overview == rhs.overview &&
+        lhs.posterPath == rhs.posterPath &&
+        lhs.revenue == rhs.revenue &&
+        lhs.runtime == rhs.runtime &&
+        lhs.title == rhs.title &&
+        lhs.voteAverage == rhs.voteAverage &&
+        lhs.voteCount == rhs.voteCount
+    }
 }
 
-struct MovieGenreModel {
+struct MovieGenreModel: Equatable {
     let id: Int
     let name: String
 }
