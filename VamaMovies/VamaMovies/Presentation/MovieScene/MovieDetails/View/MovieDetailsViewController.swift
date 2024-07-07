@@ -45,28 +45,31 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         setupActivityIndicator()
         
         layoutUI()
-        
+        composeState()
         fetchMovieDetails()
     }
     
-    func fetchMovieDetails() {
-        
-        activityIndicator.startAnimating()
-        
+    func composeState() {
         viewModel.$state.sink { state in
             switch state {
             case .content(let movieModel):
                 self.movie = movieModel
-                self.configureUI()
-                self.activityIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    self.configureUI()
+                    self.activityIndicator.stopAnimating()
+                }
             default:
                 break
             }
         }
         .store(in: &subscriptions)
-        
-        
-        viewModel.configure()
+    }
+    
+    func fetchMovieDetails() {
+        Task {
+            activityIndicator.startAnimating()
+            await viewModel.configure()
+        }
     }
     
     func setupScrollView() {

@@ -38,27 +38,31 @@ class MovieListViewController: UIViewController, StoryboardInstantiable, UISearc
         setupSearchBar()
         setupCollectionView()
         setupActivityIndicator()
-        
+        composeState()
         fetchMovieList()
     }
     
     func fetchMovieList() {
-        
-        activityIndicator.startAnimating()
-        
+        Task {
+            activityIndicator.startAnimating()
+            await viewModel.configure()
+        }
+    }
+    
+    func composeState() {
         viewModel.$state.sink { state in
             switch state {
             case .content(let movieModel):
                 self.movies = movieModel
-                self.collectionView.reloadData()
-                self.activityIndicator.stopAnimating()
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.activityIndicator.stopAnimating()
+                }
             default:
                 break
             }
         }
         .store(in: &subscriptions)
-        
-        viewModel.configure()
     }
     
     

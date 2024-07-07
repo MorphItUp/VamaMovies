@@ -5,11 +5,10 @@
 //  Created by Mohamed Elgedawy on 06/07/2024.
 //
 
-import Combine
 import VamaNetworking
 
 protocol MovieListRepositoryProtocol {
-    func getMovieList() -> AnyPublisher<[MovieModel]?, Error>
+    func getMovieList() async throws -> [MovieModel]?
 }
 
 final class MovieListRepository: MovieListRepositoryProtocol {
@@ -26,13 +25,13 @@ final class MovieListRepository: MovieListRepositoryProtocol {
     
     // MARK: - Methods
     
-    func getMovieList() -> AnyPublisher<[MovieModel]?, Error> {
-        Future<[MovieModel]?, Error> { promise in
-            let request = MovieListRequest()
+    func getMovieList() async throws -> [MovieModel]? {
+        let request = MovieListRequest()
+        return try await withCheckedThrowingContinuation { continuation in
             self.provider.makeRequest(request: request) { result in
                 switch result {
                 case .success(let response):
-                    let movieModel = response.results.map { MovieModel.init(
+                    let movieModel = response.results.map { MovieModel(
                         id: $0.id,
                         title: $0.title,
                         overview: $0.overview,
@@ -40,14 +39,13 @@ final class MovieListRepository: MovieListRepositoryProtocol {
                         releaseDate: $0.releaseDate,
                         voteAverage: $0.voteAverage,
                         voteCount: $0.voteCount
-                    ) }
-                    promise(.success(movieModel))
+                    )}
+                    continuation.resume(returning: movieModel)
                 case .failure(let error):
-                    promise(.failure(error))
+                    continuation.resume(throwing: error)
                 }
             }
         }
-        .eraseToAnyPublisher()
     }
 }
 

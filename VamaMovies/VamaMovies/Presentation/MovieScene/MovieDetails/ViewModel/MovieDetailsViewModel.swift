@@ -14,7 +14,7 @@ enum MovieDetailsState {
 }
 
 protocol MovieDetailsViewModelProtocol: ObservableObject {
-    func configure()
+    func configure() async
     var state: MovieDetailsState? { get }
 }
 
@@ -38,22 +38,13 @@ final class MovieDetailsViewModel: MovieDetailsViewModelProtocol, MovieDetailsVi
     
     // MARK: - Requests
     
-    func configure() {
-        movieDetailsUseCase.execute()
-            .sink { [weak self] error in
-                guard let self else { return }
-                switch error {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.state = .error(error)
-                }
-            } receiveValue: { [weak self] movieDetails in
-                guard let self,
-                      let movieDetails else { return }
-                self.state = .content(movieDetails)
-            }
-            .store(in: &subscriptions)
+    func configure() async {
+        do {
+            guard let movieDetails = try await movieDetailsUseCase.execute() else { return }
+            self.state = .content(movieDetails)
+        } catch {
+            self.state = .error(error)
+        }
     }
 }
 

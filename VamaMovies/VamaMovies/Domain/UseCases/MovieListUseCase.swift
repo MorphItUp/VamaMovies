@@ -11,7 +11,7 @@ import Foundation
 
 // MARK: - MovieList UseCases
  protocol MovieListUseCaseProtocol {
-    func execute() -> AnyPublisher<[MovieModel]?, Error>
+    func execute() async throws -> [MovieModel]?
 }
 
 final class MovieListUseCase: MovieListUseCaseProtocol {
@@ -28,8 +28,8 @@ final class MovieListUseCase: MovieListUseCaseProtocol {
     
     // MARK: - Methods
     
-    func execute() -> AnyPublisher<[MovieModel]?, Error> {
-        movieListRepo.getMovieList()
+    func execute() async throws -> [MovieModel]? {
+        try await movieListRepo.getMovieList()
     }
     
 }

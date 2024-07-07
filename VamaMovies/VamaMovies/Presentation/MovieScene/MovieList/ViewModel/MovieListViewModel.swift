@@ -14,7 +14,7 @@ enum MovieListState {
 }
 
 protocol MovieListViewModelProtocol: ObservableObject {
-    func configure()
+    func configure() async
     func didSelectedMovie(id: Int)
     var state: MovieListState? { get }
 }
@@ -40,22 +40,13 @@ final class MovieListViewModel: MovieListViewModelProtocol, MovieListViewModelRo
     
     // MARK: - Requests
     
-    func configure() {
-        movieListUseCase.execute()
-            .sink { [weak self] error in
-                guard let self else { return }
-                switch error {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.state = .error(error)
-                }
-            } receiveValue: { [weak self] movies in
-                guard let self,
-                      let movies else { return }
-                self.state = .content(movies)
-            }
-            .store(in: &subscriptions)
+    func configure() async {
+        do {
+            guard let movieList = try await movieListUseCase.execute() else { return }
+            self.state = .content(movieList)
+        } catch {
+            self.state = .error(error)
+        }
     }
     
     // MARK: - Methods

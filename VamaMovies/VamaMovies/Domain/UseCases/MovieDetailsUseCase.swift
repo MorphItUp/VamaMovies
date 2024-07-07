@@ -11,7 +11,7 @@ import Combine
 // MARK: - MovieDetails UseCases
 
 protocol MovieDetailsUseCaseProtocol {
-    func execute() -> AnyPublisher<MovieDetailsModel?, Error>
+    func execute() async throws -> MovieDetailsModel?
     var movieId: Int { get set }
 }
 
@@ -31,8 +31,8 @@ final class MovieDetailsUseCase: MovieDetailsUseCaseProtocol {
     
     // MARK: - Methods
     
-    func execute() -> AnyPublisher<MovieDetailsModel?, Error> {
-        movieDetailsRepo.getMovieDetails(withId: movieId)
+    func execute() async throws -> MovieDetailsModel? {
+        try await movieDetailsRepo.getMovieDetails(withId: movieId)
     }
 }
 
