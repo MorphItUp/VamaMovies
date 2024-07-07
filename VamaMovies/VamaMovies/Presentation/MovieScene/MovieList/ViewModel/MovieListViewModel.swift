@@ -14,7 +14,7 @@ enum MovieListState {
     case error(Error)
 }
 
-protocol MovieListViewModelProtocol: ObservableObject {
+protocol MovieListViewModelProtocol {
     func getMovieList() async
     func searchMovie(with query: String) async
     var state: MovieListState? { get }

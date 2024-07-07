@@ -13,7 +13,7 @@ enum MovieDetailsState {
     case error(Error)
 }
 
-protocol MovieDetailsViewModelProtocol: ObservableObject {
+protocol MovieDetailsViewModelProtocol {
     func configure() async
     var state: MovieDetailsState? { get }
 }
