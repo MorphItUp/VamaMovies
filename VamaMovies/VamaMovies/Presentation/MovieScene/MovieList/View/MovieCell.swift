@@ -15,7 +15,7 @@ class MovieCell: UICollectionViewCell {
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
     private let yearLabel = UILabel()
-    private let genreLabel = UILabel()
+    private let ratingLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,7 +56,7 @@ class MovieCell: UICollectionViewCell {
     }
 
     private func setupTitleLabel() {
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy, width: .standard)
         titleLabel.textColor = .black
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -64,18 +64,18 @@ class MovieCell: UICollectionViewCell {
     }
     
     private func setupYearLabel() {
-        yearLabel.font = UIFont.systemFont(ofSize: 12)
+        yearLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular, width: .standard)
         yearLabel.textColor = .black
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
         imageContainerView.addSubview(yearLabel)
     }
    
     private func setupGenreLabel() {
-        genreLabel.font = UIFont.systemFont(ofSize: 10)
-        genreLabel.textColor = .black
-        genreLabel.numberOfLines = 0
-        genreLabel.translatesAutoresizingMaskIntoConstraints = false
-        imageContainerView.addSubview(genreLabel)
+        ratingLabel.font = UIFont.systemFont(ofSize: 11, weight: .regular, width: .standard)
+        ratingLabel.textColor = .black
+        ratingLabel.numberOfLines = 0
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
+        imageContainerView.addSubview(ratingLabel)
     }
     
     private func layoutUI() {
@@ -88,18 +88,17 @@ class MovieCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: imageContainerView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageContainerView.heightAnchor, multiplier: 0.7),
+            imageView.heightAnchor.constraint(equalTo: imageContainerView.heightAnchor, multiplier: 0.75),
             
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2),
             titleLabel.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor, constant: -8),
             
-            genreLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            genreLabel.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor, constant: 8),
-            genreLabel.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor, constant: -8),
+            ratingLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            ratingLabel.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor, constant: 8),
+            ratingLabel.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor, constant: -8),
             
-            yearLabel.topAnchor.constraint(equalTo: genreLabel.bottomAnchor, constant: 4),
-            yearLabel.leadingAnchor.constraint(equalTo: imageContainerView.leadingAnchor, constant: 8),
+            yearLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             yearLabel.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor, constant: -8),
             yearLabel.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: -8)
         ])
@@ -109,7 +108,7 @@ class MovieCell: UICollectionViewCell {
     func configure(with movie: MovieModel) {
         titleLabel.text = movie.title
         yearLabel.text = movie.releaseDate.extractYear()
-        genreLabel.text = movie.overview
+        ratingLabel.text = "\(movie.voteAverage.formatRating())/10"
         guard let url = URL(string: "\(NetworkConstants.imageUrl.rawValue + movie.poster)") else { return }
         imageView.load(url: url)
     }

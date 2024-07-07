@@ -36,7 +36,8 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
+  
         composeSearchQuerySubject()
         setupSearchBar()
         setupCollectionView()
@@ -139,7 +140,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     private func setupCollectionView() {
         let layout = createCompositionalLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
