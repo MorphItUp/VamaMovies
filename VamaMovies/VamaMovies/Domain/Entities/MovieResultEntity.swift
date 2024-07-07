@@ -9,10 +9,11 @@ import Foundation
 
 struct MovieResultEntity: Codable {
     var id: Int
-    var backdropPath: String
+    var backdropPath: String?
     var originalLanguage, originalTitle, overview: String
     var popularity: Double
-    var posterPath, releaseDate, title: String
+    var posterPath: String?
+    var releaseDate, title: String
     var voteAverage: Double
     var voteCount: Int
     

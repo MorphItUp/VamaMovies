@@ -19,6 +19,8 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     private var filteredMovies: [MovieModel] = []
     private var viewModel: MovieListViewModel!
     
+    private var searchQuerySubject = PassthroughSubject<String, Never>()
+    
     // MARK: - Lifecycle
     
     static func create(with viewModel: MovieListViewModel) -> MovieListViewController {
@@ -30,7 +32,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        setupSearchSubscription()
         setupSearchBar()
         setupCollectionView()
         setupActivityIndicator()
@@ -42,16 +44,43 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     
     private func fetchMovieList() {
         Task {
-            activityIndicator.startAnimating()
             await viewModel.configure()
         }
     }
+    
+    private func fetchSearhedMovies(with query: String) {
+        Task {
+            await viewModel.searchMovie(with: query)
+        }
+    }
+    
+    private func setupSearchSubscription() {
+           searchQuerySubject
+            .debounce(for: .seconds(1.5), scheduler: RunLoop.main)
+               .removeDuplicates()
+               .sink { [weak self] query in
+                   guard let self = self else { return }
+                   if query.isEmpty {
+                       isSearching = false
+                       DispatchQueue.main.async {
+                           self.collectionView.reloadData()
+                       }
+                   } else {
+                       fetchSearhedMovies(with: query)
+                   }
+               }
+               .store(in: &subscriptions)
+       }
     
     private func composeState() {
         viewModel.$state.sink { state in
             switch state {
             case .content(let movieModel):
-                self.movies = movieModel
+                if self.isSearching {
+                    self.filteredMovies = movieModel
+                } else {
+                    self.movies = movieModel
+                }
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                     self.activityIndicator.stopAnimating()
@@ -145,14 +174,7 @@ extension MovieListViewController: UICollectionViewDelegate {
 
 extension MovieListViewController: UISearchBarDelegate {
    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-           if searchText.isEmpty {
-               isSearching = false
-               filteredMovies.removeAll()
-               collectionView.reloadData()
-           } else {
-               isSearching = true
-               filteredMovies = movies.filter { $0.title.lowercased().contains(searchText.lowercased()) }
-               collectionView.reloadData()
-           }
+       isSearching = !searchText.isEmpty
+       searchQuerySubject.send(searchText)
        }
 }

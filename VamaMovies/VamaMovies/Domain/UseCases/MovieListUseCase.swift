@@ -10,8 +10,9 @@ import Combine
 import Foundation
 
 // MARK: - MovieList UseCases
- protocol MovieListUseCaseProtocol {
-    func execute() async throws -> [MovieModel]?
+protocol MovieListUseCaseProtocol {
+    func getMovieList() async throws -> [MovieModel]?
+    func searchMovie(with query: String) async throws -> [MovieModel]?
 }
 
 final class MovieListUseCase: MovieListUseCaseProtocol {
@@ -28,8 +29,12 @@ final class MovieListUseCase: MovieListUseCaseProtocol {
     
     // MARK: - Methods
     
-    func execute() async throws -> [MovieModel]? {
+    func getMovieList() async throws -> [MovieModel]? {
         try await movieListRepo.getMovieList()
+    }
+    
+    func searchMovie(with query: String) async throws -> [MovieModel]? {
+        try await movieListRepo.searchMovie(with: query)
     }
     
 }

@@ -15,6 +15,7 @@ enum MovieListState {
 
 protocol MovieListViewModelProtocol: ObservableObject {
     func configure() async
+    func searchMovie(with query: String) async
     var state: MovieListState? { get }
 }
 
@@ -40,8 +41,17 @@ final class MovieListViewModel: MovieListViewModelProtocol, MovieListViewModelRo
     
     func configure() async {
         do {
-            guard let movieList = try await movieListUseCase.execute() else { return }
+            guard let movieList = try await movieListUseCase.getMovieList() else { return }
             self.state = .content(movieList)
+        } catch {
+            self.state = .error(error)
+        }
+    }
+    
+    func searchMovie(with query: String) async {
+        do {
+            guard let searchedMovieList = try await movieListUseCase.searchMovie(with: query) else { return }
+            self.state = .content(searchedMovieList)
         } catch {
             self.state = .error(error)
         }

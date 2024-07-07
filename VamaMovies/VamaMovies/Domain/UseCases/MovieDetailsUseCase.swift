@@ -12,7 +12,6 @@ import Combine
 
 protocol MovieDetailsUseCaseProtocol {
     func execute() async throws -> MovieDetailsModel?
-    var movieId: Int { get set }
 }
 
 final class MovieDetailsUseCase: MovieDetailsUseCaseProtocol {
@@ -20,7 +19,7 @@ final class MovieDetailsUseCase: MovieDetailsUseCaseProtocol {
     // MARK: - Private Properties
     
     private let movieDetailsRepo: MovieDetailsRepositoryProtocol
-    var movieId: Int
+    private let movieId: Int
     
     // MARK: - Init
     

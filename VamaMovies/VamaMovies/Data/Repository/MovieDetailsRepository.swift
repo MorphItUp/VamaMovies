@@ -27,8 +27,9 @@ final class MovieDetailsRepository: MovieDetailsRepositoryProtocol {
     
     func getMovieDetails(withId movieId: Int) async throws -> MovieDetailsModel? {
         let request = MovieDetailsRequest(movieId: movieId)
-        return try await withCheckedThrowingContinuation { continuation in
-            self.provider.makeRequest(request: request) { result in
+        return try await withCheckedThrowingContinuation { [weak self] continuation in
+            guard let self else { return }
+            provider.makeRequest(request: request) { result in
                 switch result {
                 case .success(let response):
                     let movieDetailsModel = MovieDetailsModel(movieDetailsEntity: response)

@@ -9,6 +9,7 @@ import VamaNetworking
 
 protocol MovieListRepositoryProtocol {
     func getMovieList() async throws -> [MovieModel]?
+    func searchMovie(with query: String) async throws -> [MovieModel]? 
 }
 
 final class MovieListRepository: MovieListRepositoryProtocol {
@@ -16,7 +17,7 @@ final class MovieListRepository: MovieListRepositoryProtocol {
     // MARK: - Properties
     
     private let provider: ServiceProtocol
-        
+    
     // MARK: - Init
     
     init(provider: ServiceProtocol = Service()) {
@@ -27,15 +28,16 @@ final class MovieListRepository: MovieListRepositoryProtocol {
     
     func getMovieList() async throws -> [MovieModel]? {
         let request = MovieListRequest()
-        return try await withCheckedThrowingContinuation { continuation in
-            self.provider.makeRequest(request: request) { result in
+        return try await withCheckedThrowingContinuation { [weak self] continuation in
+            guard let self else { return }
+            provider.makeRequest(request: request) { result in
                 switch result {
                 case .success(let response):
                     let movieModel = response.results.map { MovieModel(
                         id: $0.id,
                         title: $0.title,
                         overview: $0.overview,
-                        poster: $0.posterPath,
+                        poster: $0.posterPath ?? "",
                         releaseDate: $0.releaseDate,
                         voteAverage: $0.voteAverage,
                         voteCount: $0.voteCount
@@ -47,5 +49,30 @@ final class MovieListRepository: MovieListRepositoryProtocol {
             }
         }
     }
+    
+    func searchMovie(with query: String) async throws -> [MovieModel]? {
+        let request = MovieSearchRequest(searchQuery: query)
+        return try await withCheckedThrowingContinuation { [weak self] continuation in
+            guard let self else { return }
+            provider.makeRequest(request: request) { result in
+                switch result {
+                case .success(let response):
+                    let movieModel = response.results.map { MovieModel(
+                        id: $0.id,
+                        title: $0.title,
+                        overview: $0.overview,
+                        poster: $0.posterPath ?? "",
+                        releaseDate: $0.releaseDate,
+                        voteAverage: $0.voteAverage,
+                        voteCount: $0.voteCount
+                    )}
+                    continuation.resume(returning: movieModel)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
 }
 
