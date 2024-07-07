@@ -44,7 +44,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     
     private func fetchMovieList() {
         Task {
-            await viewModel.configure()
+            await viewModel.getMovieList()
         }
     }
     
