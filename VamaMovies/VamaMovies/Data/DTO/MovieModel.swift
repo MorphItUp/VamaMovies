@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieModel: Equatable {
+struct MovieModel: Equatable, Hashable {
     var id: Int
     
     var title: String

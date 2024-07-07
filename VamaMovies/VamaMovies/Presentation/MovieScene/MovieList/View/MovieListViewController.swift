@@ -8,6 +8,10 @@
 import UIKit
 import Combine
 
+enum Section {
+    case main
+}
+
 class MovieListViewController: UIViewController, StoryboardInstantiable {
     
     private var subscriptions = Set<AnyCancellable>()
@@ -18,7 +22,8 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     private var movies: [MovieModel] = []
     private var filteredMovies: [MovieModel] = []
     private var viewModel: MovieListViewModel!
-    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, MovieModel>!
+
     private var searchQuerySubject = PassthroughSubject<String, Never>()
     
     // MARK: - Lifecycle
@@ -36,6 +41,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
         setupSearchBar()
         setupCollectionView()
         setupActivityIndicator()
+        setupDataSource()
         composeState()
         fetchMovieList()
     }
@@ -63,7 +69,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
                    if query.isEmpty {
                        isSearching = false
                        DispatchQueue.main.async {
-                           self.collectionView.reloadData()
+                           self.applySnapshot(animatingDifferences: true)
                        }
                    } else {
                        fetchSearhedMovies(with: query)
@@ -73,21 +79,28 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
        }
     
     private func composeState() {
-        viewModel.$state.sink { state in
+        
+        viewModel.$snapshot.sink { [weak self] snapshot in
+            guard let self else { return }
+            dataSource.apply(snapshot, animatingDifferences: true)
+            
+            if isSearching {
+                filteredMovies = snapshot.itemIdentifiers
+            } else {
+                movies = snapshot.itemIdentifiers
+            }
+          
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
+        }
+        .store(in: &subscriptions)
+        
+        viewModel.$state.sink { [weak self] state in
             switch state {
-            case .content(let movieModel):
-                if self.isSearching {
-                    self.filteredMovies = movieModel
-                } else {
-                    self.movies = movieModel
-                }
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.activityIndicator.stopAnimating()
-                }
             case .loading:
                 DispatchQueue.main.async {
-                    self.activityIndicator.startAnimating()
+                    self?.activityIndicator.startAnimating()
                 }
             default:
                 break
@@ -96,6 +109,19 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
         .store(in: &subscriptions)
     }
     
+    private func applySnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(self.movies, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+
+    private func applySnapshotWithSearchResults() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(self.filteredMovies, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
     
     // MARK: - Setup UI
     
@@ -114,15 +140,11 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
     }
     
     private func setupCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: view.frame.width / 2 - 16, height: view.frame.width / 2 * 1.5)
-        layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        
+        let layout = createCompositionalLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         
@@ -132,6 +154,7 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        collectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseIdentifier)
     }
     
     private func setupActivityIndicator() {
@@ -144,6 +167,40 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
+    
+    private func setupDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, MovieModel>(collectionView: collectionView) { collectionView, indexPath, item in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseIdentifier, for: indexPath) as! MovieCell
+            cell.configure(with: item)
+            return cell
+        }
+    }
+    
+    private func applySnapshot(animatingDifferences: Bool) {
+           var snapshot = NSDiffableDataSourceSnapshot<Section, MovieModel>()
+           snapshot.appendSections([.main])
+           
+           if isSearching {
+               snapshot.appendItems(filteredMovies)
+           } else {
+               snapshot.appendItems(movies)
+           }
+           
+           dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+       }
+      
+      private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+          let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1.0))
+          let item = NSCollectionLayoutItem(layoutSize: itemSize)
+          item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+          
+          let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.75))
+          let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+          
+          let section = NSCollectionLayoutSection(group: group)
+          
+          return UICollectionViewCompositionalLayout(section: section)
+      }
 }
 
 // MARK: - UICollectionView DataSource
