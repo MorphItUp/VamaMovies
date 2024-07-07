@@ -19,7 +19,7 @@ struct MovieListRequest: URLRequestConvertible {
     // MARK: - Methods
 
     func asURLRequest() -> URLRequest {
-        var urlComponents = URLComponents(url: URL(string: NetworkConstants.baseUrl.rawValue + "/discover/movie")!, resolvingAgainstBaseURL: false)
+        var urlComponents = URLComponents(url: URL(string: NetworkConstants.baseUrl.rawValue + "/movie/popular")!, resolvingAgainstBaseURL: false)
         urlComponents?.queryItems = [URLQueryItem]()
         
         let parameters = ["limit": 50]
