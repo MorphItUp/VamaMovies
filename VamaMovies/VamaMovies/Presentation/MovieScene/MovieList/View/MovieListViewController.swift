@@ -14,6 +14,8 @@ enum Section {
 
 class MovieListViewController: UIViewController, StoryboardInstantiable {
     
+    // MARK: - Private Properties
+    
     private var subscriptions = Set<AnyCancellable>()
     private var collectionView: UICollectionView!
     private var searchBar: UISearchBar!
@@ -101,6 +103,12 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
             case .loading:
                 DispatchQueue.main.async {
                     self.activityIndicator.startAnimating()
+                }
+                
+            case .error(let error):
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.showErrorAlert(message: error.localizedDescription)
                 }
             default:
                 break
@@ -199,6 +207,13 @@ class MovieListViewController: UIViewController, StoryboardInstantiable {
         
         return UICollectionViewCompositionalLayout(section: section)
     }
+    
+    private func showErrorAlert(message: String) {
+           let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+           let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+           alertController.addAction(okAction)
+           present(alertController, animated: true, completion: nil)
+       }
 }
 
 // MARK: - UICollectionView DataSource

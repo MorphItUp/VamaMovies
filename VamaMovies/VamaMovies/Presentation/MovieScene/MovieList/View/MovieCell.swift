@@ -8,6 +8,9 @@
 import UIKit
 
 class MovieCell: UICollectionViewCell {
+    
+    // MARK: - Private Properties
+    
     static let reuseIdentifier = "MovieCell"
     
     private let gradientLayer = CAGradientLayer()
@@ -16,6 +19,8 @@ class MovieCell: UICollectionViewCell {
     private let titleLabel = UILabel()
     private let yearLabel = UILabel()
     private let ratingLabel = UILabel()
+    
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,15 +37,27 @@ class MovieCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Configure
+    
+    func configure(with movie: MovieModel) {
+        titleLabel.text = movie.title
+        yearLabel.text = movie.releaseDate.extractYear()
+        ratingLabel.text = "\(movie.voteAverage.formatRating())/10"
+        guard let url = URL(string: "\(NetworkConstants.imageUrl.rawValue + movie.poster)") else { return }
+        imageView.load(url: url)
+    }
+    
+    // MARK: - Setup UI
+    
     private func setupContentView() {
-        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowColor = UIColor.blackAndWhiteSet.cgColor
         contentView.layer.shadowOpacity = 0.4
         contentView.layer.shadowOffset = CGSize(width: 3, height: 5)
         contentView.layer.shadowRadius = 9
     }
     
     private func setupImageContainerView() {
-        imageContainerView.backgroundColor = .systemGray6
+        imageContainerView.backgroundColor = .white.withAlphaComponent(0.85)
         imageContainerView.layer.cornerRadius = 12
         imageContainerView.clipsToBounds = true
         imageContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -102,14 +119,5 @@ class MovieCell: UICollectionViewCell {
             yearLabel.trailingAnchor.constraint(equalTo: imageContainerView.trailingAnchor, constant: -8),
             yearLabel.bottomAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: -8)
         ])
-    }
-    
-    
-    func configure(with movie: MovieModel) {
-        titleLabel.text = movie.title
-        yearLabel.text = movie.releaseDate.extractYear()
-        ratingLabel.text = "\(movie.voteAverage.formatRating())/10"
-        guard let url = URL(string: "\(NetworkConstants.imageUrl.rawValue + movie.poster)") else { return }
-        imageView.load(url: url)
     }
 }

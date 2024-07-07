@@ -9,7 +9,6 @@ import Foundation
 
 struct MovieModel: Equatable, Hashable {
     var id: Int
-    
     var title: String
     var overview: String
     var poster: String

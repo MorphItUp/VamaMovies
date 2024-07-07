@@ -12,7 +12,7 @@ protocol MovieViewFactoryProtocol {
     func makeMovieDetails(movieId: Int) -> (UIViewController, MovieDetailsViewModelRouterProtocol)
 }
 
-class MovieViewFactory: MovieViewFactoryProtocol {
+final class MovieViewFactory: MovieViewFactoryProtocol {
     
     func makeMovieList() -> (UIViewController, MovieListViewModelRouterProtocol) {
         let repo = MovieListRepository()

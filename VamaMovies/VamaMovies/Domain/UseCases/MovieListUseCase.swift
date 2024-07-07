@@ -7,7 +7,6 @@
 
 // In real life application, this class would contain more business logic
 import Combine
-import Foundation
 
 // MARK: - MovieList UseCases
 protocol MovieListUseCaseProtocol {

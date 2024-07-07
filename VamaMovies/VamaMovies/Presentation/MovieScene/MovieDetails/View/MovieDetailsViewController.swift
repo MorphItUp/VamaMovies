@@ -10,6 +10,8 @@ import Combine
 
 class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     
+    // MARK: - Private Properties
+    
     private var movie: MovieDetailsModel!
     private var viewModel: MovieDetailsViewModel!
     
@@ -77,6 +79,12 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
                 DispatchQueue.main.async {
                     self.activityIndicator.startAnimating()
                 }
+                
+            case .error(let error):
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.showErrorAlert(message: error.localizedDescription)
+                }
             default:
                 break
             }
@@ -140,6 +148,7 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     
     private func setupTitleLabel() {
         titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .heavy, width: .standard)
+        titleLabel.textColor = .black
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.addSubview(titleLabel)
@@ -169,12 +178,13 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     private func setupAboutTheMovieLabel() {
         aboutTheMovieLabel.text = "About the movie"
         aboutTheMovieLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold, width: .standard)
+        aboutTheMovieLabel.textColor = .black
         aboutTheMovieLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.addSubview(aboutTheMovieLabel)
     }
     
     private func setupDescriptionView() {
-        descriptionView.backgroundColor = .white
+        descriptionView.backgroundColor = .white.withAlphaComponent(0.85)
         descriptionView.layer.shadowColor = UIColor.black.cgColor
         descriptionView.layer.shadowOpacity = 0.1
         descriptionView.layer.shadowOffset = CGSize(width: 5, height: 4)
@@ -241,5 +251,12 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
             descriptionLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: -16)
         ])
     }
+    
+    private func showErrorAlert(message: String) {
+           let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+           let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+           alertController.addAction(okAction)
+           present(alertController, animated: true, completion: nil)
+       }
 }
 
