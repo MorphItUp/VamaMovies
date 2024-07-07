@@ -112,9 +112,5 @@ class MovieCell: UICollectionViewCell {
         genreLabel.text = movie.overview
         guard let url = URL(string: "\(NetworkConstants.imageUrl.rawValue + movie.poster)") else { return }
         imageView.load(url: url)
-        
-        //           genreLabel.text = movie.genres.compactMap { genreID in
-        //               genres.first(where: { $0.id == genreID })?.name
-        //           }.joined(separator: ", ")
     }
 }

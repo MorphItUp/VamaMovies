@@ -9,15 +9,20 @@ import UIKit
 import Combine
 
 class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
-
+    
     private var movie: MovieDetailsModel!
     private var viewModel: MovieDetailsViewModel!
+    
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let posterContainerView = UIView()
     private let posterImageView = UIImageView()
     private let titleLabel = UILabel()
+    private let genreLabel = UILabel()
+    private let runtimeLabel = UILabel()
+    private let aboutTheMovieLabel = UILabel()
     private let descriptionView = UIView()
+    private let separatorLine = UIView()
     private let descriptionLabel = UILabel()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -38,6 +43,10 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         setupPosterImageView()
         setupPosterContainerView()
         setupTitleLabel()
+        setupGenreLabel()
+        setupRuntimeLabel()
+        setupSeparatorLine()
+        setupAboutTheMovieLabel()
         setupDescriptionView()
         setupDescriptionLabel()
         setupActivityIndicator()
@@ -75,11 +84,16 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
         .store(in: &subscriptions)
     }
     
-   // MARK: - Setup UI
+    // MARK: - Setup UI
     
     private func configureUI() {
         titleLabel.text = movie.title
         descriptionLabel.text = movie.overview
+        genreLabel.text = movie.genres.compactMap { genre in
+            genre.name
+        }.joined(separator: ", ")
+        runtimeLabel.text = "\(movie.runtime.toMovieRuntime())"
+        
         guard let url = URL(string: "\(NetworkConstants.imageUrlOriginal.rawValue + movie.posterPath)") else { return }
         posterImageView.load(url: url)
     }
@@ -125,10 +139,38 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .heavy, width: .standard)
         titleLabel.numberOfLines = 0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(titleLabel)
+        descriptionView.addSubview(titleLabel)
+    }
+    
+    private func setupGenreLabel() {
+        genreLabel.font = UIFont.systemFont(ofSize: 14, weight: .light, width: .standard)
+        genreLabel.textColor = .darkGray
+        genreLabel.numberOfLines = 0
+        genreLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.addSubview(genreLabel)
+    }
+    
+    private func setupRuntimeLabel() {
+        runtimeLabel.font = UIFont.systemFont(ofSize: 14, weight: .light, width: .standard)
+        runtimeLabel.textColor = .darkGray
+        runtimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.addSubview(runtimeLabel)
+    }
+    
+    private func setupSeparatorLine() {
+        separatorLine.backgroundColor = .systemGray3
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.addSubview(separatorLine)
+    }
+    
+    private func setupAboutTheMovieLabel() {
+        aboutTheMovieLabel.text = "About the movie"
+        aboutTheMovieLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold, width: .standard)
+        aboutTheMovieLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.addSubview(aboutTheMovieLabel)
     }
     
     private func setupDescriptionView() {
@@ -144,6 +186,7 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     
     private func setupDescriptionLabel() {
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
+        descriptionLabel.textColor = .darkGray
         descriptionLabel.numberOfLines = 0
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.addSubview(descriptionLabel)
@@ -161,22 +204,38 @@ class MovieDetailsViewController: UIViewController, StoryboardInstantiable {
     
     private func layoutUI() {
         NSLayoutConstraint.activate([
+            posterImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            posterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            posterImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            posterImageView.heightAnchor.constraint(equalToConstant: 500),
             
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
-            posterImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            posterImageView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            posterImageView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            posterImageView.heightAnchor.constraint(equalToConstant: 450),
-           
             descriptionView.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 32),
             descriptionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             descriptionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             descriptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             
-            descriptionLabel.topAnchor.constraint(equalTo: descriptionView.topAnchor, constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: descriptionView.topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -16),
+            
+            genreLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            genreLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            genreLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            
+            runtimeLabel.topAnchor.constraint(equalTo: genreLabel.bottomAnchor, constant: 4),
+            runtimeLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            runtimeLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            
+            separatorLine.topAnchor.constraint(equalTo: runtimeLabel.bottomAnchor, constant: 16),
+            separatorLine.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: 16),
+            separatorLine.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -16),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1),
+            
+            aboutTheMovieLabel.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 16),
+            aboutTheMovieLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: 16),
+            aboutTheMovieLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -16),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: aboutTheMovieLabel.bottomAnchor, constant: 10),
             descriptionLabel.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -16),
             descriptionLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: -16)
