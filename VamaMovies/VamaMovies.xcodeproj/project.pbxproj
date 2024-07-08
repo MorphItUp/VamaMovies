@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		928B85BB2C3C0F7F00F5B264 /* VamaNetworking in Resources */ = {isa = PBXBuildFile; fileRef = 928B85B92C3C0F7F00F5B264 /* VamaNetworking */; };
+		928B85BF2C3C13A500F5B264 /* VamaNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 928B85BE2C3C13A500F5B264 /* VamaNetworking */; };
 		92AC68B22C3AF8D0005B1FD9 /* MovieSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AC68B12C3AF8D0005B1FD9 /* MovieSearchRequest.swift */; };
 		92AC68B42C3B0B06005B1FD9 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AC68B32C3B0B06005B1FD9 /* String+Extension.swift */; };
 		92AC68BB2C3B35D5005B1FD9 /* MovieListUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AC68BA2C3B35D5005B1FD9 /* MovieListUseCaseMock.swift */; };
@@ -24,7 +24,6 @@
 		92DB1F402C3968BB00B7D993 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 92DB1F3F2C3968BB00B7D993 /* Base */; };
 		92DB1F552C3968BB00B7D993 /* VamaMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F542C3968BB00B7D993 /* VamaMoviesUITests.swift */; };
 		92DB1F572C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F562C3968BB00B7D993 /* VamaMoviesUITestsLaunchTests.swift */; };
-		92DB1F702C396D0200B7D993 /* VamaNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 92DB1F6F2C396D0200B7D993 /* VamaNetworking */; };
 		92DB1F772C396FAB00B7D993 /* MovieListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F762C396FAB00B7D993 /* MovieListUseCase.swift */; };
 		92DB1F7B2C39715F00B7D993 /* MovieEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F7A2C39715F00B7D993 /* MovieEntity.swift */; };
 		92DB1F7F2C39718700B7D993 /* MovieResultEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB1F7E2C39718700B7D993 /* MovieResultEntity.swift */; };
@@ -66,7 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		928B85B92C3C0F7F00F5B264 /* VamaNetworking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = VamaNetworking; sourceTree = "<group>"; };
+		928B85BC2C3C139100F5B264 /* VamaNetworking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = VamaNetworking; path = ../../../../VamaNetworking; sourceTree = "<group>"; };
 		92AC68B12C3AF8D0005B1FD9 /* MovieSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchRequest.swift; sourceTree = "<group>"; };
 		92AC68B32C3B0B06005B1FD9 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		92AC68BA2C3B35D5005B1FD9 /* MovieListUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListUseCaseMock.swift; sourceTree = "<group>"; };
@@ -115,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92DB1F702C396D0200B7D993 /* VamaNetworking in Frameworks */,
+				928B85BF2C3C13A500F5B264 /* VamaNetworking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,9 +138,16 @@
 		928B85BA2C3C0F7F00F5B264 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				928B85B92C3C0F7F00F5B264 /* VamaNetworking */,
+				928B85BC2C3C139100F5B264 /* VamaNetworking */,
 			);
 			path = Packages;
+			sourceTree = "<group>";
+		};
+		928B85BD2C3C13A500F5B264 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		92AC68B72C3B356E005B1FD9 /* Mock */ = {
@@ -170,6 +176,7 @@
 				92DB1F492C3968BB00B7D993 /* VamaMoviesTests */,
 				92DB1F532C3968BB00B7D993 /* VamaMoviesUITests */,
 				92DB1F312C3968B900B7D993 /* Products */,
+				928B85BD2C3C13A500F5B264 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -433,7 +440,7 @@
 			);
 			name = VamaMovies;
 			packageProductDependencies = (
-				92DB1F6F2C396D0200B7D993 /* VamaNetworking */,
+				928B85BE2C3C13A500F5B264 /* VamaNetworking */,
 			);
 			productName = VamaMovies;
 			productReference = 92DB1F302C3968B900B7D993 /* VamaMovies.app */;
@@ -529,7 +536,6 @@
 				92D57BFA2C3A007A001BC939 /* MovieDetailsViewController.storyboard in Resources */,
 				92DB1F402C3968BB00B7D993 /* Base in Resources */,
 				92DB1F3B2C3968B900B7D993 /* Base in Resources */,
-				928B85BB2C3C0F7F00F5B264 /* VamaNetworking in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -930,7 +936,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		92DB1F6F2C396D0200B7D993 /* VamaNetworking */ = {
+		928B85BE2C3C13A500F5B264 /* VamaNetworking */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = VamaNetworking;
 		};
